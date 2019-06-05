@@ -18,7 +18,7 @@ server.listen(port, hostname, () => {
 });
 
 // Crear un bot de Telegram
-const bot = new TelegramBot(token, {polling: true});
+const bot = new TelegramBot(token, { polling: true });
 
 /*
 // Igualar lo que haya en el parametro "/cafe [parametro]"
@@ -43,16 +43,38 @@ bot.on('message', (msg) => {
   });
   */
 
+/*
 // Igualar lo que haya en el parametro "/cafe"
 bot.onText(/\/cafe/, (msg, match) => {
-    // 'msg' es el mensaje recibido desde telegram
-    // 'match' Es la ejecución del parametro dentro de la expreseión regular
+  // 'msg' es el mensaje recibido desde telegram
+  // 'match' Es la ejecución del parametro dentro de la expreseión regular
 
-    const chatId = msg.chat.id;
-    const resp = match[1]; // El parametro recibido "parametro"
-  
-    let persona = "El Potro";
+  const chatId = msg.chat.id;
+  const resp = match[1]; // El parametro recibido "parametro"
+ 
+  let persona = "El señor Ministro";
 
+  // Regresar el parametro que se recibio despues de Echo
+  bot.sendMessage(chatId, `Hoy le toca el café a ${persona}`);
+});
+*/
+
+bot.onText(/\/numero (.+)/, (msg, match) => {
+  // 'msg' es el mensaje recibido desde telegram
+  // 'match' Es la ejecución del parametro dentro de la expreseión regular
+
+  const chatId = msg.chat.id;
+  const resp = match[1]; // El parametro recibido "parametro"
+
+  let persona = msg.from.first_name;
+
+  if (resp == 75) {
+    bot.sendMessage(chatId, `Adivinaste el numero ${persona} sos la mera pija.`);
+  } else if (resp > 100 || resp < 1){
+    bot.sendMessage(chatId, `No seas maje ${persona} una instruccion tenias que seguir...`);
+  }else {
     // Regresar el parametro que se recibio despues de Echo
-    bot.sendMessage(chatId, `Hoy le toca el café a ${persona}`);
-  });
+    bot.sendMessage(chatId, `No ${persona} ese no es el numero.`);
+  }
+
+});
