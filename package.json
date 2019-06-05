@@ -1,0 +1,14 @@
+{
+  "name": "telegram",
+  "version": "1.0.0",
+  "description": "App para conectarse a la API de Telegram",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Mario Zepeda",
+  "license": "ISC",
+  "dependencies": {
+    "node-telegram-bot-api": "^0.30.0"
+  }
+}
