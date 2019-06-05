@@ -2,13 +2,23 @@
   "name": "telegram",
   "version": "1.0.0",
   "description": "App para conectarse a la API de Telegram",
-  "main": "app.js",
+  "main": "app.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "tsc": "tsc",
+    "start": "nodemon src/app.ts",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "ts-node-dev --respawn --transpileOnly ./src/app.ts",
+    "prod": "tsc && node ./build/app.js"
   },
   "author": "Mario Zepeda",
   "license": "ISC",
   "dependencies": {
-    "node-telegram-bot-api": "^0.30.0"
+    "node-telegram-bot-api": "^0.30.0",
+    "sqlite3": "^4.0.8",
+    "ts-node-dev": "^1.0.0-pre.39",
+    "typescript": "^3.5.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.1"
   }
 }

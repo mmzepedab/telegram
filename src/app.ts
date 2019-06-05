@@ -1,11 +1,15 @@
-const TelegramBot = require('node-telegram-bot-api');
 
-const token = '867634671:AAHy8Njtgsdy9b59r8m8gUbtp5T2qNtZ1jA';
+import { Game } from "../models/game.model"
 
 const http = require('http');
+const TelegramBot = require('node-telegram-bot-api');
+const sqlite3 = require('sqlite3').verbose();
 
+const token = '867634671:AAHy8Njtgsdy9b59r8m8gUbtp5T2qNtZ1jA';
 const hostname = '127.0.0.1';
 const port = 3000;
+
+let db = new sqlite3.Database(':memory:');
 
 const server = http.createServer((req, res) => {
   res.statusCode = 200;
@@ -15,6 +19,36 @@ const server = http.createServer((req, res) => {
 
 server.listen(port, hostname, () => {
   console.log(`Servidor Corriendo en http://${hostname}:${port}/`);
+  var sqlite3 = require('sqlite3').verbose();
+  var db = new sqlite3.Database('./db/telegram.db');
+  var check;
+  db.serialize(function () {
+
+    db.run(`DROP TABLE game;`);
+    db.run(`CREATE TABLE if not exists game (
+      player1Id INTEGER, 
+      player1Name TEXT, 
+      player1Move INTEGER, 
+      player2Id INTEGER, 
+      player2Name TEXT, 
+      player2Move INTEGER)`);
+    var stmt = db.prepare("INSERT INTO game (player1Id, player1Name, player1Move, player2Id, player2Name, player2Move) VALUES (1, 'Mario Miguel', 1, 2, 'Jose', 3)");
+
+    stmt.run();
+    /*
+    for (var i = 0; i < 10; i++) {
+      stmt.run("Ipsum " + i);
+    }
+    */
+    stmt.finalize();
+
+    db.each("SELECT rowid AS id, player1Id, player1Name, player1Move FROM game", function (err, row) {
+      console.log(row.id + row.player1Id + row.player1Name + row.player1Move);
+    });
+  });
+
+  db.close();
+
 });
 
 // Crear un bot de Telegram
@@ -70,9 +104,9 @@ bot.onText(/\/numero (.+)/, (msg, match) => {
 
   if (resp == 75) {
     bot.sendMessage(chatId, `Adivinaste el numero ${persona} sos la mera pija.`);
-  } else if (resp > 100 || resp < 1){
+  } else if (resp > 100 || resp < 1) {
     bot.sendMessage(chatId, `No seas maje ${persona} una instruccion tenias que seguir...`);
-  }else {
+  } else {
     // Regresar el parametro que se recibio despues de Echo
     bot.sendMessage(chatId, `No ${persona} ese no es el numero.`);
   }
