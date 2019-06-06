@@ -1,0 +1,38 @@
+/*
+// Igualar lo que haya en el parametro "/cafe [parametro]"
+bot.onText(/\/cafe (.+)/, (msg, match) => {
+    // 'msg' es el mensaje recibido desde telegram
+    // 'match' Es la ejecución del parametro dentro de la expreseión regular
+
+    const chatId = msg.chat.id;
+    const resp = match[1]; // El parametro recibido "parametro"
+  
+    let persona = "El Potro";
+
+    // Regresar el parametro que se recibio despues de Echo
+    bot.sendMessage(chatId, `Hoy le toca el café a ${persona}`);
+  });
+
+  // Escucha cualquier mensaje y responde que lo recibió
+bot.on('message', (msg) => {
+    const chatId = msg.chat.id;  
+    // Regresar un mensaje para confirmar que se recibió
+    bot.sendMessage(chatId, 'Mensaje Recibido');
+  });
+  */
+
+/*
+// Igualar lo que haya en el parametro "/cafe"
+bot.onText(/\/cafe/, (msg, match) => {
+  // 'msg' es el mensaje recibido desde telegram
+  // 'match' Es la ejecución del parametro dentro de la expreseión regular
+
+  const chatId = msg.chat.id;
+  const resp = match[1]; // El parametro recibido "parametro"
+ 
+  let persona = "El señor Ministro";
+
+  // Regresar el parametro que se recibio despues de Echo
+  bot.sendMessage(chatId, `Hoy le toca el café a ${persona}`);
+});
+*/
