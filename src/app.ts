@@ -96,9 +96,9 @@ function createGame(chatId, p1Id, p1Name) {
 
     db.each("SELECT rowid AS id, player1Id, player1Name, player1Move, status FROM game", function (err, row) {
       console.log(row.id + row.player1Id + row.player1Name + row.player1Move + row.status);
-      if(row){
+      if (row) {
         bot.sendMessage(chatId, `Se ha creado un nuevo juego`);
-      }else{
+      } else {
         bot.sendMessage(chatId, `No se ha podido crear un nuevo juego`);
       }
     });
